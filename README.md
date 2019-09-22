@@ -11,3 +11,9 @@ python3 setup.py install
 ```
 skepy [package_name]
 ```
+If you give a pacckage_name, skepy creates a new folder.
+
+```
+skepy
+```
+Create template in a current folder.
