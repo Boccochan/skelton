@@ -1,5 +1,5 @@
-# skelton
-Create project template for python
+# skepy
+skepy is a cli for creating a python project template
 
 
 ## Install
