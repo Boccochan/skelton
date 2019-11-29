@@ -6,12 +6,12 @@ from typing import Optional
 from skepy.content import SETUP_PY, INIT_FILE, CLI, GITIGNORE
 
 
-def create_package_template(dir_path: str, package: Optional[str]=None) -> None:
+def create_package_template(package: Optional[str]=None) -> None:
     if package:
         os.makedirs(package, exist_ok=True)
         os.chdir(package)
     else:
-        package = os.path.split(dir_path)[-1]
+        package = os.path.split(os.getcwd())[-1]
 
     pkg_src = os.path.join('src', os.getcwd().split(os.sep)[-1])
 
@@ -36,9 +36,9 @@ def create_package_template(dir_path: str, package: Optional[str]=None) -> None:
 @click.argument("package", required=False)
 def main(package):
     """ Create a new python package template """
-    dir_path = os.path.dirname(sys.modules[__name__].__file__)
+    # dir_path = os.path.dirname(sys.modules[__name__].__file__)
 
-    create_package_template(dir_path, package)
+    create_package_template(package)
 
 
 if __name__ == "__main__":
