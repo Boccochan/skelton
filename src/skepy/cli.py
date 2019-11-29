@@ -10,6 +10,8 @@ def create_package_template(dir_path: str, package: Optional[str]=None) -> None:
     if package:
         os.makedirs(package, exist_ok=True)
         os.chdir(package)
+    else:
+        package = os.path.split(dir_path)[-1]
 
     pkg_src = os.path.join('src', os.getcwd().split(os.sep)[-1])
 
