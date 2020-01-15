@@ -24,6 +24,7 @@ setup(
     description="Calculate time of python code.",
     install_requires=[
         "click",
+        "jinja2"
     ],
     extras_require={
         "test": [
