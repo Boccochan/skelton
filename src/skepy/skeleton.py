@@ -2,6 +2,7 @@ import os
 import sys
 import shutil
 import uuid
+import click
 from distutils.dir_util import copy_tree
 
 
@@ -43,11 +44,11 @@ class Project:
             self._copy_templates()
 
         except SkepyCancelled:
-            print('Cancelled', file=sys.stderr)
+            click.echo('Cancelled', err=True)
             return 1 
 
         except SkepyTmpdirExist:
-            print(f'{self._tmpdir_path} already exist.', file=sys.stderr)
+            click.echo(f'{self._tmpdir_path} already exist.', err=True)
             return 2
 
         finally:

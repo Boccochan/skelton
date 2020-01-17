@@ -7,10 +7,10 @@ from src.skepy import skeleton
 
 
 @click.command()
-@click.argument("package", required=False)
-def main(package):
+@click.argument("package_name", required=False)
+def main(package_name):
     """ Create a new python package template """
-    proj = skeleton.Project(package)
+    proj = skeleton.Project(package_name)
 
     return proj.create_skeleton()
 
