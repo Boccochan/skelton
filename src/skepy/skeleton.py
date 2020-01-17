@@ -91,9 +91,10 @@ class Project:
     def _apply_pkg_name_to_templates(self):
         os.environ['PKG_NAME'] = self._project_name 
 
-        setup_py_path = os.path.join(self._tmpdir_path, 'setup.py')
-        self._apply_env_to_file(setup_py_path)
+        target_files = [
+            os.path.join(self._tmpdir_path, 'setup.py'),
+            os.path.join(self._tmpdir_path, 'src', self._project_name, 'cli.py')
+        ]
 
-        setup_py_path = os.path.join(self._tmpdir_path, 'src', self._project_name, 'cli.py')
-        self._apply_env_to_file(setup_py_path)
-
+        for target_file in target_files:
+            self._apply_env_to_file(target_file)
