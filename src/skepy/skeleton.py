@@ -19,6 +19,8 @@ class SkepyTmpdirExist(SkeletonException):
 
 class Project: 
     def __init__(self, project_name: str = None):
+        self._project_name = project_name
+
         if project_name is None:
             self._project_path = os.getcwd()
         else:
@@ -37,7 +39,7 @@ class Project:
                 
             self._copy_template_to_tmpdir()
             self._apply_pkg_name_to_src_dir()
-            self._apply_pkg_name_to_files()
+            self._apply_pkg_name_to_templates()
             self._copy_templates()
 
         except SkepyCancelled:
@@ -72,29 +74,26 @@ class Project:
             shutil.copytree(self._tmpdir_path, self._project_path)
 
     def _apply_pkg_name_to_src_dir(self):
-        project_name = self._project_path.rsplit(os.path.sep, 1)[-1]
-
-        proj_path = os.path.join(self._tmpdir_path, 'src', project_name)
+        proj_path = os.path.join(self._tmpdir_path, 'src', self._project_name)
         if os.path.exists(proj_path):
             shutil.rmtree(proj_path)
 
         pkg_path = os.path.join(self._tmpdir_path, 'src', 'pkg_name')
         os.rename(pkg_path, proj_path)
 
-    def _apply_pkg_name_to_file(self, path: str, project_name: str):
+    def _apply_env_to_file(self, path: str):
         with open(path, 'r') as f:
             expandedvars_setup_py = os.path.expandvars(f.read())
 
         with open(path, 'w') as f:
             f.write(expandedvars_setup_py)
 
-    def _apply_pkg_name_to_files(self):
-        os.environ['PKG_NAME'] = self._project_path.rsplit(os.path.sep, 1)[-1]
-        project_name = self._project_path.rsplit(os.path.sep, 1)[-1]
+    def _apply_pkg_name_to_templates(self):
+        os.environ['PKG_NAME'] = self._project_name 
 
         setup_py_path = os.path.join(self._tmpdir_path, 'setup.py')
-        self._apply_pkg_name_to_file(setup_py_path, project_name)
+        self._apply_env_to_file(setup_py_path)
 
-        setup_py_path = os.path.join(self._tmpdir_path, 'src', project_name, 'cli.py')
-        self._apply_pkg_name_to_file(setup_py_path, project_name)
+        setup_py_path = os.path.join(self._tmpdir_path, 'src', self._project_name, 'cli.py')
+        self._apply_env_to_file(setup_py_path)
 
