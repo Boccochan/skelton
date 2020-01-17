@@ -31,7 +31,7 @@ class Project:
         dir_path = os.path.dirname(sys.modules[__name__].__file__)
         self._tmpdir_path = os.path.join(dir_path, f'skepy_tmpdir_{uid}') 
 
-    def create_skeleton(self):
+    def create_skeleton(self) -> int:
         try:
             if os.path.exists(self._tmpdir_path):
                 raise SkepyTmpdirExist
@@ -43,10 +43,17 @@ class Project:
 
         except SkepyCancelled:
             print('Cancelled', file=sys.stderr)
+            return 1 
+
+        except SkepyTmpdirExist:
+            print(f'{self._tmpdir_path} already exist.', file=sys.stderr)
+            return 2
 
         finally:
             if os.path.exists(self._tmpdir_path):
                 shutil.rmtree(self._tmpdir_path)
+
+        return 0
 
     def _copy_template_to_tmpdir(self):
         template_path = os.path.join(self._module_path, 'template')        

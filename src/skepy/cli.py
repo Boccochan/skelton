@@ -11,15 +11,9 @@ from src.skepy import skeleton
 def main(package):
     """ Create a new python package template """
     proj = skeleton.Project(package)
-    #TODO: create_workspace
-    #TODO: apply_config_to_templates
-    #TODO: copy_templates
-    
-    # proj.copy_template()
-    # proj.apply_pkg_name_to_src_dir()
-    # proj.apply_pkg_name_to_files()
 
-    proj.create_skeleton()
+    return proj.create_skeleton()
+
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

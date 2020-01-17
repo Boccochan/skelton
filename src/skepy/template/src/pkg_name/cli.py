@@ -1,3 +1,5 @@
+import sys
+
 from src.${PKG_NAME} import hello_world
 
 
@@ -7,4 +9,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
