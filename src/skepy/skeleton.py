@@ -3,7 +3,6 @@ import sys
 import shutil
 import uuid
 from distutils.dir_util import copy_tree
-from jinja2 import Template, Environment, FileSystemLoader
 
 
 class SkeletonException(Exception):

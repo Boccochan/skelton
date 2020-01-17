@@ -23,8 +23,7 @@ setup(
     maintainer_email="boccochan@gmail.com",
     description="Calculate time of python code.",
     install_requires=[
-        "click",
-        "jinja2"
+        "click"
     ],
     extras_require={
         "test": [
